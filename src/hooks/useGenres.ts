@@ -1,21 +1,18 @@
-import { CanceledError } from "axios";
 import { useEffect, useState } from "react";
 import apiClient from "../services/api-client";
+import { CanceledError } from "axios";
 
-export interface Movie {
+interface Genre {
   id: number;
-  title: string;
-  backdrop_path: string;
-  vote_average: number;
-  original_language: string;
-  release_date: string;
+  name: string;
 }
-interface FetchMovieResponse {
-  page: number;
-  results: Movie[];
+
+interface FetchGenreResponse {
+  genres: Genre[];
 }
-const useMovies = () => {
-  const [movies, setMovies] = useState<Movie[]>([]);
+
+const useGenres = () => {
+  const [movieGenres, setMovieGenres] = useState<Genre[]>([]);
   const [error, setError] = useState("");
   const [isLoading, setLoading] = useState(false);
 
@@ -23,9 +20,11 @@ const useMovies = () => {
     const controller = new AbortController();
     setLoading(true);
     apiClient
-      .get<FetchMovieResponse>("movie/popular", { signal: controller.signal })
+      .get<FetchGenreResponse>("genre/movie/list", {
+        signal: controller.signal,
+      })
       .then((res) => {
-        setMovies(res.data.results);
+        setMovieGenres(res.data.genres);
         setLoading(false);
       })
       .catch((err) => {
@@ -37,7 +36,7 @@ const useMovies = () => {
     return () => controller.abort();
   }, []);
 
-  return { movies, error, isLoading };
+  return { movieGenres, error, isLoading };
 };
 
-export default useMovies;
+export default useGenres;
