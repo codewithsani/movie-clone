@@ -19,7 +19,7 @@ const useMovies = () => {
   useEffect(() => {
     const controller = new AbortController();
     apiClient
-      .get<FetchMovieResponse>("/popular", { signal: controller.signal })
+      .get<FetchMovieResponse>("/top_rated", { signal: controller.signal })
       .then((res) => setMovies(res.data.results))
       .catch((err) => {
         if (err instanceof CanceledError) return;
