@@ -5,7 +5,7 @@ import MovieCardContainer from "./MovieCardContainer";
 import MovieCardSkeleton from "./MovieCardSkeleton";
 
 const MovieGrid = () => {
-  const { movies, error, isLoading } = useMovies("popular");
+  const { movies, error, isLoading } = useMovies();
   const skeletons = [1, 2, 3, 4, 5, 6, 7, 8];
   return (
     <>

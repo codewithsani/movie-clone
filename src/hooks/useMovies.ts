@@ -1,6 +1,7 @@
 import { CanceledError } from "axios";
 import { useEffect, useState } from "react";
 import apiClient from "../services/api-client";
+
 export interface Movie {
   id: number;
   title: string;
@@ -13,7 +14,7 @@ interface FetchResponse {
   page: number;
   results: Movie[];
 }
-const useMovies = (endpoint: string) => {
+const useMovies = () => {
   const [movies, setMovies] = useState<Movie[]>([]);
   const [error, setError] = useState("");
   const [isLoading, setLoading] = useState(false);
@@ -22,7 +23,7 @@ const useMovies = (endpoint: string) => {
     const controller = new AbortController();
     setLoading(true);
     apiClient
-      .get<FetchResponse>(endpoint, { signal: controller.signal })
+      .get<FetchResponse>("popular", { signal: controller.signal })
       .then((res) => {
         setMovies(res.data.results);
         setLoading(false);
