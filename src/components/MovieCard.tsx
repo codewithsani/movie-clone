@@ -6,7 +6,7 @@ interface Props {
 }
 
 const MovieCard = ({ movie }: Props) => {
-  const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/original";
+  const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500";
   return (
     <Card borderRadius={10} overflow="hidden">
       <Image src={IMAGE_BASE_URL + movie.backdrop_path} />
