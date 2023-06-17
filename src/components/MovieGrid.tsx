@@ -1,33 +1,37 @@
-import { SimpleGrid, Text } from "@chakra-ui/react";
+import { Box, Button, SimpleGrid } from "@chakra-ui/react";
+import React from "react";
+import { Genre } from "../hooks/useGenres";
 import useMovies from "../hooks/useMovies";
 import MovieCard from "./MovieCard";
 import MovieCardContainer from "./MovieCardContainer";
-import MovieCardSkeleton from "./MovieCardSkeleton";
 
-const MovieGrid = () => {
-  const { movies, error, isLoading } = useMovies();
-  const skeletons = [1, 2, 3, 4, 5, 6, 7, 8];
+interface Props {
+  selectedGenre: Genre | null;
+}
+
+const MovieGrid = ({ selectedGenre }: Props) => {
+  const { data, isFetchingNextPage, fetchNextPage, hasNextPage } =
+    useMovies(selectedGenre);
+
   return (
-    <>
-      {error && <Text>{error}</Text>}
-      <SimpleGrid
-        columns={{ sm: 1, md: 2, lg: 3, xl: 4 }}
-        padding="10px"
-        spacing={6}
-      >
-        {isLoading &&
-          skeletons.map((skeleton) => (
-            <MovieCardContainer key={skeleton}>
-              <MovieCardSkeleton />
-            </MovieCardContainer>
-          ))}
-        {movies.map((movie) => (
-          <MovieCardContainer key={movie.id}>
-            <MovieCard movie={movie} />
-          </MovieCardContainer>
+    <Box padding="10px">
+      <SimpleGrid columns={{ sm: 1, md: 2, lg: 3 }} spacing={6}>
+        {data?.pages.map((page, index) => (
+          <React.Fragment key={index}>
+            {page.results.map((movie) => (
+              <MovieCardContainer key={movie.id}>
+                <MovieCard movie={movie} />
+              </MovieCardContainer>
+            ))}
+          </React.Fragment>
         ))}
       </SimpleGrid>
-    </>
+      {hasNextPage && (
+        <Button onClick={() => fetchNextPage()} marginY={5}>
+          {isFetchingNextPage ? "Loading..." : "Load more"}
+        </Button>
+      )}
+    </Box>
   );
 };
 

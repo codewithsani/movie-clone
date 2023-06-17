@@ -1,6 +1,6 @@
-import { CanceledError } from "axios";
-import { useEffect, useState } from "react";
+import { useInfiniteQuery } from "@tanstack/react-query";
 import apiClient from "../services/api-client";
+import { Genre } from "./useGenres";
 
 export interface Movie {
   id: number;
@@ -13,31 +13,23 @@ export interface Movie {
 interface FetchMovieResponse {
   page: number;
   results: Movie[];
+  total_pages: number;
 }
-const useMovies = () => {
-  const [movies, setMovies] = useState<Movie[]>([]);
-  const [error, setError] = useState("");
-  const [isLoading, setLoading] = useState(false);
-
-  useEffect(() => {
-    const controller = new AbortController();
-    setLoading(true);
-    apiClient
-      .get<FetchMovieResponse>("movie/popular", { signal: controller.signal })
-      .then((res) => {
-        setMovies(res.data.results);
-        setLoading(false);
-      })
-      .catch((err) => {
-        if (err instanceof CanceledError) return;
-        setError(err.message);
-        setLoading(false);
-      });
-
-    return () => controller.abort();
-  }, []);
-
-  return { movies, error, isLoading };
-};
+const useMovies = (selectedGenre: Genre | null) =>
+  useInfiniteQuery({
+    queryKey: ["movies/popular", selectedGenre],
+    queryFn: ({ pageParam = 1 }) =>
+      apiClient
+        .get<FetchMovieResponse>("movie/popular", {
+          params: {
+            genre_ids: selectedGenre?.id,
+            page: pageParam,
+          },
+        })
+        .then((res) => res.data),
+    getNextPageParam: (lastPage, allPage) => {
+      return lastPage.total_pages ? allPage.length + 1 : undefined;
+    },
+  });
 
 export default useMovies;

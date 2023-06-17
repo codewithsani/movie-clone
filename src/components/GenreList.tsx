@@ -1,8 +1,12 @@
 import { Button, Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/react";
-import useGenres from "../hooks/useGenres";
+import useGenres, { Genre } from "../hooks/useGenres";
 import { BsChevronDown } from "react-icons/bs";
 
-const GenreList = () => {
+interface Props {
+  onSelectGenre: (movieGenre: Genre) => void;
+}
+
+const GenreList = ({ onSelectGenre }: Props) => {
   const { movieGenres } = useGenres();
   return (
     <Menu>
@@ -11,7 +15,12 @@ const GenreList = () => {
       </MenuButton>
       <MenuList>
         {movieGenres.map((movieGenre) => (
-          <MenuItem key={movieGenre.id}>{movieGenre.name}</MenuItem>
+          <MenuItem
+            onClick={() => onSelectGenre(movieGenre)}
+            key={movieGenre.id}
+          >
+            {movieGenre.name}
+          </MenuItem>
         ))}
       </MenuList>
     </Menu>
