@@ -6,8 +6,14 @@ import { useState } from "react";
 import { Genre } from "./hooks/useGenres";
 import SortSelector from "./components/SortSelector";
 
+export interface MovieQuery {
+  movieGenre: Genre | null;
+  sortOrder: string;
+}
+
 function App() {
-  const [selectedGenre, setSelectedGenre] = useState<Genre | null>(null);
+  const [movieQuery, setMovieQuery] = useState<MovieQuery>({} as MovieQuery);
+
   return (
     <Grid
       templateAreas={{
@@ -24,11 +30,19 @@ function App() {
       <GridItem area="main">
         <HStack spacing={5} paddingLeft={2} marginY={5}>
           <GenreList
-            onSelectGenre={(movieGenre) => setSelectedGenre(movieGenre)}
+            selectedGenre={movieQuery.movieGenre}
+            onSelectGenre={(movieGenre) =>
+              setMovieQuery({ ...movieQuery, movieGenre })
+            }
           />
-          <SortSelector />
+          <SortSelector
+            sortOrder={movieQuery.sortOrder}
+            onSelectSortOrder={(sortOrder) =>
+              setMovieQuery({ ...movieQuery, sortOrder })
+            }
+          />
         </HStack>
-        <MovieGrid selectedGenre={selectedGenre} />
+        <MovieGrid movieQuery={movieQuery} />
       </GridItem>
     </Grid>
   );
