@@ -4,11 +4,12 @@ import { BsChevronDown } from "react-icons/bs";
 
 interface Props {
   onSelectGenre: (movieGenre: Genre) => void;
-  selectedGenre: Genre | null;
+  selectedGenreId?: number;
 }
 
-const GenreList = ({ onSelectGenre, selectedGenre }: Props) => {
+const GenreList = ({ onSelectGenre, selectedGenreId }: Props) => {
   const { data } = useGenres();
+  const selectedGenre = data?.genres.find((g) => g.id === selectedGenreId);
   return (
     <Menu>
       <MenuButton as={Button} rightIcon={<BsChevronDown />}>

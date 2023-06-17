@@ -1,6 +1,7 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { MovieQuery } from "../App";
+
 import apiClient from "../services/api-client";
+import { MovieQuery } from "../App";
 
 export interface Movie {
   id: number;
@@ -22,7 +23,7 @@ const useMovies = (movieQuery: MovieQuery) =>
       apiClient
         .get<FetchMovieResponse>("discover/movie", {
           params: {
-            with_genres: movieQuery.movieGenre?.id,
+            with_genres: movieQuery.genreId,
             page: pageParam,
             sort_by: movieQuery?.sortOrder,
           },

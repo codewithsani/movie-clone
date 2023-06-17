@@ -1,13 +1,12 @@
 import { Grid, GridItem, HStack, Show } from "@chakra-ui/react";
+import { useState } from "react";
+import GenreList from "./components/GenreList";
 import MovieGrid from "./components/MovieGrid";
 import NavBar from "./components/NavBar";
-import GenreList from "./components/GenreList";
-import { useState } from "react";
-import { Genre } from "./hooks/useGenres";
 import SortSelector from "./components/SortSelector";
 
 export interface MovieQuery {
-  movieGenre: Genre | null;
+  genreId?: number;
   sortOrder: string;
   searchText: string;
 }
@@ -20,6 +19,10 @@ function App() {
       templateAreas={{
         base: `"nav" "main"`,
         lg: `"nav nav" "aside main"`,
+      }}
+      templateColumns={{
+        base: "1fr",
+        lg: "250px 1fr",
       }}
     >
       <GridItem area="nav">
@@ -35,9 +38,9 @@ function App() {
       <GridItem area="main">
         <HStack spacing={5} paddingLeft={2} marginY={5}>
           <GenreList
-            selectedGenre={movieQuery.movieGenre}
+            selectedGenreId={movieQuery.genreId}
             onSelectGenre={(movieGenre) =>
-              setMovieQuery({ ...movieQuery, movieGenre })
+              setMovieQuery({ ...movieQuery, genreId: movieGenre.id })
             }
           />
           <SortSelector
