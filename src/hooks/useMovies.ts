@@ -30,6 +30,8 @@ const useMovies = (selectedGenre: Genre | null) =>
     getNextPageParam: (lastPage, allPage) => {
       return lastPage.total_pages ? allPage.length + 1 : undefined;
     },
+
+    staleTime: 24 * 60 * 60 * 1000, //24h
   });
 
 export default useMovies;
