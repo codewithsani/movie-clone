@@ -15,16 +15,16 @@ interface FetchMovieResponse {
   results: Movie[];
   total_pages: number;
 }
-const useMovies = (movieQuery: MovieQuery) =>
+const useSearchMovies = (movieQuery: MovieQuery) =>
   useInfiniteQuery({
-    queryKey: ["discover/movie", movieQuery],
+    queryKey: ["search/movie", movieQuery],
     queryFn: ({ pageParam = 1 }) =>
       apiClient
-        .get<FetchMovieResponse>("discover/movie", {
+        .get<FetchMovieResponse>("search/movie", {
           params: {
-            with_genres: movieQuery.movieGenre?.id,
             page: pageParam,
-            sort_by: movieQuery?.sortOrder,
+
+            query: movieQuery?.searchText,
           },
         })
         .then((res) => res.data),
@@ -35,4 +35,4 @@ const useMovies = (movieQuery: MovieQuery) =>
     staleTime: 24 * 60 * 60 * 1000, //24h
   });
 
-export default useMovies;
+export default useSearchMovies;

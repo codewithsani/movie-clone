@@ -8,14 +8,14 @@ interface Props {
 }
 
 const GenreList = ({ onSelectGenre, selectedGenre }: Props) => {
-  const { movieGenres } = useGenres();
+  const { data } = useGenres();
   return (
     <Menu>
       <MenuButton as={Button} rightIcon={<BsChevronDown />}>
         {selectedGenre?.name || "Movie Genre"}
       </MenuButton>
       <MenuList>
-        {movieGenres.map((movieGenre) => (
+        {data?.genres.map((movieGenre) => (
           <MenuItem
             onClick={() => onSelectGenre(movieGenre)}
             key={movieGenre.id}
