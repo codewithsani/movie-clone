@@ -17,12 +17,12 @@ interface FetchMovieResponse {
 }
 const useMovies = (selectedGenre: Genre | null) =>
   useInfiniteQuery({
-    queryKey: ["movies/popular", selectedGenre],
+    queryKey: ["movie/popular", selectedGenre],
     queryFn: ({ pageParam = 1 }) =>
       apiClient
         .get<FetchMovieResponse>("movie/popular", {
           params: {
-            genre_ids: selectedGenre?.id,
+            query: selectedGenre?.id,
             page: pageParam,
           },
         })
