@@ -1,6 +1,8 @@
-import { useParams } from "react-router-dom";
-import useMovie from "../hooks/useMovie";
 import { Heading, Spinner, Text } from "@chakra-ui/react";
+import { useParams } from "react-router-dom";
+
+import MovieAttributes from "../components/MovieAttributes";
+import useMovie from "../hooks/useMovie";
 
 const MovieDetailPage = () => {
   const { id } = useParams();
@@ -12,6 +14,7 @@ const MovieDetailPage = () => {
     <>
       <Heading>{movie.title}</Heading>
       <Text>{movie.overview}</Text>
+      <MovieAttributes />
     </>
   );
 };

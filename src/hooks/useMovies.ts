@@ -2,7 +2,7 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 
 import apiClient from "../services/api-client";
 import useMovieQueryStore from "../store";
-import { Movie } from "../entities/Movie";
+import { Movie } from "../entit/Movie";
 
 export interface FetchMovieResponse {
   page: number;
