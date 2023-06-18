@@ -19,7 +19,11 @@ const MovieGrid = () => {
       next={fetchNextPage}
       loader={<Spinner />}
     >
-      <SimpleGrid columns={{ sm: 1, md: 2, lg: 3 }} spacing={6} padding="10px">
+      <SimpleGrid
+        columns={{ sm: 1, md: 2, lg: 3, xl: 4 }}
+        spacing={6}
+        padding="10px"
+      >
         {isLoading &&
           skeletons.map((skeleton) => (
             <MovieCardContainer key={skeleton}>

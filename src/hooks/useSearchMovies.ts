@@ -25,7 +25,6 @@ const useSearchMovies = () => {
         .get<FetchMovieResponse>("search/movie", {
           params: {
             page: pageParam,
-
             query: movieQuery?.searchText,
           },
         })
