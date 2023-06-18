@@ -2,16 +2,8 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 
 import apiClient from "../services/api-client";
 import useMovieQueryStore from "../store";
+import { Movie } from "../entities/Movie";
 
-export interface Movie {
-  id: number;
-  title: string;
-  overview: string;
-  backdrop_path: string;
-  vote_average: number;
-  original_language: string;
-  release_date: string;
-}
 export interface FetchMovieResponse {
   page: number;
   results: Movie[];
