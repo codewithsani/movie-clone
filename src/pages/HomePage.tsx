@@ -1,28 +1,23 @@
 import { Grid, GridItem, HStack } from "@chakra-ui/react";
-import GenreList from "./components/GenreList";
-import MovieGrid from "./components/MovieGrid";
-import NavBar from "./components/NavBar";
-import SortSelector from "./components/SortSelector";
-import SearchMovieGrid from "./components/SearchMovieGrid";
-import useMovieQueryStore from "./store";
+import GenreList from "../components/GenreList";
+import MovieGrid from "../components/MovieGrid";
+import SearchMovieGrid from "../components/SearchMovieGrid";
+import SortSelector from "../components/SortSelector";
+import useMovieQueryStore from "../store";
 
-function App() {
+const HomePage = () => {
   const searchText = useMovieQueryStore((s) => s.movieQuery.searchText);
   return (
     <Grid
       templateAreas={{
-        base: `"nav" "main"`,
-        lg: `"nav " "main"`,
+        base: ` "main"`,
+        lg: ` "main"`,
       }}
       templateColumns={{
         base: "1fr",
         lg: "1fr",
       }}
     >
-      <GridItem area="nav">
-        <NavBar />
-      </GridItem>
-
       {searchText ? (
         <GridItem area="main">
           <SearchMovieGrid />
@@ -38,6 +33,6 @@ function App() {
       )}
     </Grid>
   );
-}
+};
 
-export default App;
+export default HomePage;
