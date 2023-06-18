@@ -1,4 +1,5 @@
 import { Card, CardBody, HStack, Heading, Image } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
 import { Movie } from "../hooks/useMovies";
 import CriticScore from "./CriticScore";
 import MovieData from "./MovieData";
@@ -19,7 +20,9 @@ const MovieCard = ({ movie }: Props) => {
       )}
 
       <CardBody>
-        <Heading fontSize="2xl">{movie.title}</Heading>
+        <Heading fontSize="2xl">
+          <Link to={"discover/movie/" + movie.id}>{movie.title}</Link>
+        </Heading>
         <HStack justifyContent="space-between" paddingY={4}>
           <MovieData
             release_date={movie.release_date}
