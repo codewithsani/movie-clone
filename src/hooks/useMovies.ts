@@ -12,7 +12,7 @@ export interface Movie {
   original_language: string;
   release_date: string;
 }
-interface FetchMovieResponse {
+export interface FetchMovieResponse {
   page: number;
   results: Movie[];
   total_pages: number;
