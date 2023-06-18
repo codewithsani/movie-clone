@@ -1,6 +1,6 @@
 import { Card, CardBody, HStack, Heading, Image } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
-import { Movie } from "../entit/Movie";
+import { Movie } from "../entities/Movie";
 import CriticScore from "./CriticScore";
 import MovieData from "./MovieData";
 import noImage from "../assets/no-image-placeholder.webp";
