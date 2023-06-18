@@ -6,14 +6,9 @@ import useMovies from "../hooks/useMovies";
 import MovieCard from "./MovieCard";
 import MovieCardContainer from "./MovieCardContainer";
 import MovieCardSkeleton from "./MovieCardSkeleton";
-import { MovieQuery } from "../App";
 
-interface Props {
-  movieQuery: MovieQuery;
-}
-
-const MovieGrid = ({ movieQuery }: Props) => {
-  const { data, isLoading, fetchNextPage, hasNextPage } = useMovies(movieQuery);
+const MovieGrid = () => {
+  const { data, isLoading, fetchNextPage, hasNextPage } = useMovies();
   const skeletons = [1, 2, 3, 4, 5, 6, 7, 8];
   const fetchedMoviesCount =
     data?.pages.reduce((total, page) => total + page.results.length, 0) || 0;

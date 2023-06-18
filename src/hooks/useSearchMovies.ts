@@ -1,6 +1,7 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { MovieQuery } from "../App";
+
 import apiClient from "../services/api-client";
+import useMovieQueryStore from "../store";
 
 export interface Movie {
   id: number;
@@ -15,7 +16,8 @@ interface FetchMovieResponse {
   results: Movie[];
   total_pages: number;
 }
-const useSearchMovies = (movieQuery: MovieQuery) =>
+const useSearchMovies = () => {
+  const movieQuery = useMovieQueryStore((s) => s.movieQuery);
   useInfiniteQuery({
     queryKey: ["search/movie", movieQuery],
     queryFn: ({ pageParam = 1 }) =>
@@ -34,5 +36,6 @@ const useSearchMovies = (movieQuery: MovieQuery) =>
 
     staleTime: 24 * 60 * 60 * 1000, //24h
   });
+};
 
 export default useSearchMovies;
