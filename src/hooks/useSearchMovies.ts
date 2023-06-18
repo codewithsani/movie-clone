@@ -1,9 +1,8 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
-
 import apiClient from "../services/api-client";
 import useMovieQueryStore from "../store";
 
-export interface Movie {
+export interface SearchMovie {
   id: number;
   title: string;
   backdrop_path: string;
@@ -13,19 +12,19 @@ export interface Movie {
 }
 interface FetchMovieResponse {
   page: number;
-  results: Movie[];
+  results: SearchMovie[];
   total_pages: number;
 }
 const useSearchMovies = () => {
   const movieQuery = useMovieQueryStore((s) => s.movieQuery);
-  useInfiniteQuery({
+  return useInfiniteQuery({
     queryKey: ["search/movie", movieQuery],
     queryFn: ({ pageParam = 1 }) =>
       apiClient
         .get<FetchMovieResponse>("search/movie", {
           params: {
             page: pageParam,
-            query: movieQuery?.searchText,
+            query: movieQuery.searchText,
           },
         })
         .then((res) => res.data),
