@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 
 import MovieAttributes from "../components/MovieAttributes";
 import useMovie from "../hooks/useMovie";
+import MovieTrailer from "../components/MovieTrailer";
 
 const MovieDetailPage = () => {
   const { id } = useParams();
@@ -15,6 +16,7 @@ const MovieDetailPage = () => {
       <Heading>{movie.title}</Heading>
       <Text>{movie.overview}</Text>
       <MovieAttributes />
+      <MovieTrailer movieId={movie.id} />
     </>
   );
 };
