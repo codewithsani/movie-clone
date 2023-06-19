@@ -1,4 +1,4 @@
-import { Grid, GridItem, HStack } from "@chakra-ui/react";
+import { Button, Grid, GridItem, HStack } from "@chakra-ui/react";
 import GenreList from "../components/GenreList";
 import MovieGrid from "../components/MovieGrid";
 import SearchMovieGrid from "../components/SearchMovieGrid";
@@ -27,6 +27,7 @@ const HomePage = () => {
           <HStack spacing={5} paddingLeft={2} marginY={5}>
             <GenreList />
             <SortSelector />
+            <Button onClick={() => location.reload()}>Delete Filters</Button>
           </HStack>
           <MovieGrid />
         </GridItem>

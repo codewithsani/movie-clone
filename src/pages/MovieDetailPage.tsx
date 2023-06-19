@@ -31,7 +31,7 @@ const MovieDetailPage = () => {
       </GridItem>
       <GridItem>
         <MovieTrailer movieId={movie.id} />
-        <DefinitionItem term="Movie Poster">
+        <DefinitionItem term="">
           {movie?.poster_path == null ? (
             <Image src={noImage} />
           ) : (
