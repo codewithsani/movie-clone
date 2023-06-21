@@ -1,4 +1,4 @@
-import { List, ListItem, SimpleGrid, Text } from "@chakra-ui/react";
+import { SimpleGrid, Text } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 import useMovie from "../hooks/useMovie";
 import DefinitionItem from "./DefinitionItem";
@@ -8,13 +8,18 @@ const MovieAttributes = () => {
 
   return (
     <SimpleGrid columns={{ base: 1, lg: 2 }} as="dl">
-      <DefinitionItem term="Movie Data">
-        <List>
-          <ListItem>Release Date : {movie?.release_date}</ListItem>
-          <ListItem>Orginal Language : {movie?.original_language}</ListItem>
-          <ListItem>popularity : {movie?.popularity.toFixed(1)}</ListItem>
-          <ListItem> Vote Average : {movie?.vote_average.toFixed(1)}</ListItem>
-        </List>
+      <DefinitionItem term="Release Date">
+        <Text>{movie?.release_date}</Text>
+      </DefinitionItem>
+      <DefinitionItem term="Orginal Language">
+        <Text>{movie?.original_language}</Text>
+      </DefinitionItem>
+
+      <DefinitionItem term="popularity">
+        <Text>{movie?.popularity.toFixed(1)}</Text>
+      </DefinitionItem>
+      <DefinitionItem term="Vote Average">
+        <Text>{movie?.vote_average.toFixed(1)}</Text>
       </DefinitionItem>
       <DefinitionItem term="Genre">
         {movie?.genres.map((genre) => (
