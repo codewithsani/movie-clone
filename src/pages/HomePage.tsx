@@ -24,7 +24,7 @@ const HomePage = () => {
         </GridItem>
       ) : (
         <GridItem area="main">
-          <HStack spacing={5} paddingLeft={2} marginY={5}>
+          <HStack spacing={5} padding={5} marginY={2}>
             <GenreList />
             <SortSelector />
           </HStack>
